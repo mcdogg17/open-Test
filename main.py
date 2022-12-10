@@ -7,8 +7,8 @@ app.config['SECRET_KEY'] = 'openBank'
 socketio = SocketIO(app)
 
 
-def transformation(tor):
-    return [round(elem.item() * 100, 2) for elem in tor]
+def transformation(tensor):
+    return [round(elem.item() * 100, 2) for elem in tensor]
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,7 +27,7 @@ def toxic_unit():
 
 
 @socketio.on("run_test")
-def run_test(text):
+def run_test(text: str):
     if text:
         tmp = transformation(toxicity_test.predict(text)[0])
 
@@ -37,4 +37,4 @@ def run_test(text):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='127.0.0.1', port=80, allow_unsafe_werkzeug=True)
+    socketio.run(app, host='0.0.0.0', port=80, allow_unsafe_werkzeug=True)

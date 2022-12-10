@@ -7,9 +7,8 @@ model = AutoModelForSequenceClassification.from_pretrained('blanchefort/rubert-b
 
 
 @torch.no_grad()
-def predict(text):
+def predict(text: str):
     inputs = tokenizer(text, max_length=512, padding=True, truncation=True, return_tensors='pt')
     outputs = model(**inputs)
     predicted = torch.nn.functional.softmax(outputs.logits, dim=1)
-    # predicted = torch.argmax(predicted, dim=1).numpy()
     return predicted

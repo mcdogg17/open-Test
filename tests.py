@@ -1,5 +1,4 @@
 import requests
-import toxicity_test
 
 url = 'localhost'
 port = '80'
@@ -24,22 +23,22 @@ empty_message = {"text": '',
 
 
 def go_tests():
-    posit = requests.post(f'http://{url}:{port}/toxicity', data=positive_message['text'].encode('utf-8')).json()
+    posit = requests.post(f'http://{url}:{port}/toxicity', json=positive_message).json()
     if posit['positive'] > 80:
         print('Test Positive passed')
     else:
         print('Test Positive failed')
-    neutral = requests.post(f'{url}:{port}/toxicity', data=neutral_message['text'].encode('utf-8')).json()
+    neutral = requests.post(f'http://{url}:{port}/toxicity', json=neutral_message).json()
     if neutral['neutral'] > 80:
         print('Test Neutral passed')
     else:
         print('Test Neutral failed')
-    negative = requests.post(f'{url}:{port}/toxicity', data=negativ_message['text'].encode('utf-8')).json()
+    negative = requests.post(f'http://{url}:{port}/toxicity', json=negativ_message).json()
     if negative['negative'] > 75:
         print('Test Negative passed')
     else:
         print('Test Negative failed')
-    empty = requests.post(f'{url}:{port}/toxicity', data=empty_message["text"].encode('utf-8')).json()
+    empty = requests.post(f'http://{url}:{port}/toxicity', json=empty_message).json()
     if empty['neutral'] > 70:
         print('Test Empty passed')
     else:

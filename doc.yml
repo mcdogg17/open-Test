@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  description: "Веб-сервис определения токсичности теста"
+  title: Flask Toxic Test
+  version: "0.1"
+paths:
+  /toxicity:
+    post:
+      tags:
+        - Токсичность
+      description: |
+        Получение уровня токсичности текста
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: Текст
+      responses:
+        "200":
+          description: Получение прошло успешно
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdentificationResponse"
+              examples:
+                response:
+                  value: |-
+                    {
+                      "text": "hello",
+                      "neutral": 0.8264,
+                      "positive": 0.1148,
+                      "negative": 0.0588
+                    }
+        "400":
+          description: Результаты не получены
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              examples:
+                response:
+                  value: |-
+                    {
+                      "error": "The text was not received"
+                    }
+components:
+  schemas:
+    IdentificationResponse:
+      description: Уровни токсичности текста
+      properties:
+        neutral:
+          type: float
+          description: Уровень нейтральности текста
+        positive:
+          type: float
+          description: Уровень позитива текста
+        negative:
+          type: float
+          description: Уровень негатива текста
+    Error:
+      properties:
+        error:
+          nullable: false
+          type: string
