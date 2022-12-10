@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div id="container" >
+        <textarea id="text" cols="50" rows="11f" maxlength="512" placeholder="Введите ваш текст"></textarea>
+        <div>
+            <div>Результат</div>
+            <div class='response' id="response_positive">Positive: <p id="res_positive">0 %</p></div>
+            <div class='response' id="response_neutral">Neutral: <p id="res_neutral">0 %</p></div>
+            <div class='response' id="response_negative">Negative: <p id="res_negative">0 %</p></div>
+        </div>
+    </div>
+
+    <input type="button" id="button_for_test" value="Проверить токсичность"/>
+
+{% endblock %}
