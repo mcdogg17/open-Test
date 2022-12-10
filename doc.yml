@@ -53,13 +53,13 @@ components:
       description: Уровни токсичности текста
       properties:
         neutral:
-          type: float
+          type: number
           description: Уровень нейтральности текста
         positive:
-          type: float
+          type: number
           description: Уровень позитива текста
         negative:
-          type: float
+          type: number
           description: Уровень негатива текста
     Error:
       properties:
